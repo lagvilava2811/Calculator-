@@ -1,4 +1,3 @@
-"""Console calculator with validation and file history."""
 
 from datetime import datetime
 from pathlib import Path
@@ -22,8 +21,6 @@ OPERATIONS = {
 
 
 def ensure_storage():
-    """Create the data folder and history file if they do not exist."""
-    # მონაცემების საქაღალდეს და ისტორიის ფაილს ვქმნით, თუ ჯერ არ არსებობს.
     DATA_DIR.mkdir(exist_ok=True)
     if not HISTORY_FILE.exists():
         HISTORY_FILE.write_text("Calculator history\n", encoding="utf-8")
@@ -51,7 +48,6 @@ def choose_operation():
 
 
 def calculate(first, second, operation):
-    # ნულზე გაყოფისგან პროგრამას წინასწარ ვიცავთ.
     if operation in {"/", "//", "%"} and second == 0:
         raise ZeroDivisionError("division by zero is not allowed.")
 
@@ -85,7 +81,6 @@ def calculate(first, second, operation):
 
 
 def save_history(first, second, operation, result):
-    # ყოველი გამოთვლის შედეგს history.txt ფაილში ვამატებთ.
     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     if second is None:
         line = f"{timestamp} | {operation}({first}) = {result}\n"
@@ -97,7 +92,6 @@ def save_history(first, second, operation, result):
 
 def show_history():
     print("\n--- History ---")
-    # ფაილს ხაზ-ხაზ ვკითხულობთ, რომ დიდი history.txt მთლიანად მეხსიერებაში არ ჩაიტვირთოს.
     has_records = False
     with HISTORY_FILE.open("r", encoding="utf-8") as file:
         for line in file:
@@ -116,7 +110,7 @@ def run_calculator():
     operation = choose_operation()
     
     if operation in {"sqrt", "sq", "inv"}:
-        second = None  # მეორე რიცხვი არ გვჭირდება
+        second = None 
     else:
         second = read_float(f"Enter the second number (first={first}): ")
 
